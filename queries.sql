@@ -1,0 +1,37 @@
+
+-- create
+CREATE TABLE PRODUCT (
+  productId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  category TEXT NOT NULL,
+  addedOn DATETIME NOT NULL,
+  addedBy TEXT NOT NULL
+);
+
+CREATE TABLE PRODUCT_PRICE (
+  productId INTEGER PRIMARY KEY,
+  price DECIMAL(4, 2) NOT NULL,
+  discount DECIMAL(4, 2) DEFAULT 00.00,
+  updatedOn DATETIME,
+  updatedBy TEXT
+);
+
+CREATE TABLE PRODUCT_PRICE_CHANGE_LOG (
+  productId INTEGER PRIMARY KEY,
+  changedOn DATETIME,
+  changedBy TEXT
+);
+
+-- insert
+INSERT INTO PRODUCT VALUES (0001, 'Bag', 'Accessories', '2022-1-05', 'swaralia');
+INSERT INTO PRODUCT VALUES (0002, 'Shirt', 'Clothing', '2022-1-05', 'swaralia');
+INSERT INTO PRODUCT VALUES (0003, 'Phone', 'Eletronics', '2022-1-05', 'swaralia');
+
+INSERT INTO PRODUCT_PRICE VALUES (0001, 50.06, 65.00, '2022-1-06', 'swaralia');
+INSERT INTO PRODUCT_PRICE VALUES (0002, 5.06, 5.00, '2022-1-06', 'swaralia');
+
+-- -- fetch 
+SELECT PRODUCT.name, PRODUCT.category, PRODUCT_PRICE.price, PRODUCT_PRICE.updatedOn, PRODUCT_PRICE.updatedBy
+FROM PRODUCT
+JOIN PRODUCT_PRICE
+ON PRODUCT.productId = PRODUCT_PRICE.productId;
